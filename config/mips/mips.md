@@ -6504,34 +6504,31 @@ move\\t%0,%z4\\n\\
    (set_attr "mode"	"none")
    (set_attr "length"	"0")])
 
-(define_expand "epilogue"
-  [(const_int 2)]
-  ""
-  "
-{
-  if (mips_isa >= 0)            /* avoid unused code warnings */
-    {
-      mips_expand_epilogue ();
-      DONE;
-    }
-}")
+;; (define_expand "epilogue"
+;;   [(const_int 2)]
+;;   ""
+;;   "
+;; {
+;;   if (mips_isa >= 0)            /* avoid unused code warnings */
+;;     {
+;;       mips_expand_epilogue ();
+;;       DONE;
+;;     }
+;; }")
 
 ;; Trivial return.  Make it look like a normal return insn as that
 ;; allows jump optimizations to work better .
-(define_insn "return"
-  [(return)]
+(define_expand "return"
+  [(parallel [(return)
+	      (use (reg:SI 31))])]
   "mips_can_use_return_insn ()"
-  "%*j\\t$31"
-  [(set_attr "type"	"jump")
-   (set_attr "mode"	"none")
-   (set_attr "length"	"1")])
+  "")
 
-;; Normal return.
 (define_insn "return_internal"
-  [(use (reg:SI 31))
-   (return)]
+  [(parallel [(return)
+              (use (match_operand:SI 0 "register_operand" "d"))])]
   ""
-  "%*j\\t$31"
+  "%*j\\t%0"
   [(set_attr "type"	"jump")
    (set_attr "mode"	"none")
    (set_attr "length"	"1")])

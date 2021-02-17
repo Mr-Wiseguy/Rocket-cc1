@@ -17,3 +17,16 @@ genopinit
 genoutput
 genpeep
 genrecog
+bi-parser.c
+bi-parser.h
+c-parse.y
+config.bak
+config.status
+insn-attrtab.c
+insn-codes.h
+insn-emit.c
+insn-extract.c
+insn-flags.h
+insn-output.c
+insn-recog.c
+config.log

@@ -4686,21 +4686,21 @@ Sat Jul 12 01:53:55 1997  Jason Merrill  <jason@yorick.cygnus.com>
 
 Fri Jul 11 09:49:15 1997  Jeffrey A Law  (law@cygnus.com)
 	
-	* mips.c (epilogue_reg_mentioned_p): Delete unused function.
-	(mips_epilogue_delay_slots): Likewise.
-	(function_epilogue): Greatly simplify.
-	(mips_expand_epilogue): If we have a null prologue/epilogue,
-	then use a normal return insn.  Emit blockage insns before
-	stack pointer adjustments.
-	(mips_can_use_return_insn): Renamed from simple_epilogue_p.  All
-	callers changed.  Do not use return insns if $31 is live in the
-	function or if generating profiling information.
-	* mips.h (DELAY_SLOTS_FOR_EPILOGUE): Delete.
-	(ELIGIBLE_FOR_EPILOGUE_DELAY): Likewise.
-	* mips.md (return): Remove expander and change the pattern to
-	look like a standard "return" insn.
-	(return_internal): Show use of $31 explictly.
-	(epilogue expander): Enable.
+-	* mips.c (epilogue_reg_mentioned_p): Delete unused function.
+-	(mips_epilogue_delay_slots): Likewise.
+-	(function_epilogue): Greatly simplify.
+-	(mips_expand_epilogue): If we have a null prologue/epilogue,
+-	then use a normal return insn.  Emit blockage insns before
+-	stack pointer adjustments.
+-	(mips_can_use_return_insn): Renamed from simple_epilogue_p.  All
+-	callers changed.  Do not use return insns if $31 is live in the
+-	function or if generating profiling information.
+-	* mips.h (DELAY_SLOTS_FOR_EPILOGUE): Delete.
+-	(ELIGIBLE_FOR_EPILOGUE_DELAY): Likewise.
+-	* mips.md (return): Remove expander and change the pattern to
+-	look like a standard "return" insn.
+-	(return_internal): Show use of $31 explictly.
+-	(epilogue expander): Enable.
 
 Thu Jul 10 13:04:53 1997  Doug Evans  <dje@cygnus.com>
 
