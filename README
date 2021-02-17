@@ -1,3 +1,5 @@
+Note: You may run into trouble with c-parse.y. If that happens, just touch c-parse.c and it should solve the issues.
+
 This directory contains the version 2.8.0 release of the GNU C
 compiler.  It includes all of the support for compiling C++ and
 Objective C, including a run-time library for Objective C.
