@@ -1,0 +1,201 @@
+# Makefile for GNU C++ compiler.
+#   Copyright (C) 1987, 88, 90-4, 1995 Free Software Foundation, Inc.
+
+#This file is part of GNU CC.
+
+#GNU CC is free software; you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation; either version 2, or (at your option)
+#any later version.
+
+#GNU CC is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+
+#You should have received a copy of the GNU General Public License
+#along with GNU CC; see the file COPYING.  If not, write to
+#the Free Software Foundation, 59 Temple Place - Suite 330,
+#Boston, MA 02111-1307, USA.
+
+# The makefile built from this file lives in the language subdirectory.
+# Its purpose is to provide support for:
+#
+# 1) recursion where necessary, and only then (building .o's), and
+# 2) building and debugging cc1.exe from the language subdirectory, and
+# 3) nothing else.
+#
+# The parent makefile handles all other chores, with help from the
+# language makefile fragment, of course.
+#
+# The targets for external use are:
+# all, TAGS, ???mostlyclean, ???clean.
+
+# Suppress smart makes who think they know how to automake Yacc files
+.y.c:
+
+# Variables that exist for you to override.
+# See below for how to change them for certain systems.
+
+ALLOCA = alloca.o
+
+# Various ways of specifying flags for compilations:  
+# CFLAGS is for the user to override to, e.g., do a bootstrap with -O2.
+# BOOT_CFLAGS is the value of CFLAGS to pass
+# to the stage2 and stage3 compilations
+# XCFLAGS is used for most compilations but not when using the GCC just built.
+XCFLAGS =
+CFLAGS =
+BOOT_CFLAGS = -O $(CFLAGS)
+# These exists to be overridden by the x-* and t-* files, respectively.
+X_CFLAGS =
+T_CFLAGS =
+
+X_CPPFLAGS =
+T_CPPFLAGS =
+
+CC = @CC@
+BISON = bison
+BISONFLAGS =
+LEX = flex
+LEXFLAGS =
+AR = ar
+AR_FLAGS = rc
+SHELL =
+MAKEINFO = makeinfo
+TEXI2DVI = texi2dvi
+
+# Define this as & to perform parallel make on a Sequent.
+# Note that this has some bugs, and it seems currently necessary 
+# to compile all the gen* files first by hand to avoid erroneous results.
+P =
+
+# This is used in the definition of SUBDIR_USE_ALLOCA.
+# ??? Perhaps it would be better if it just looked for *gcc*.
+OLDCC = cl
+
+# This is used instead of ALL_CFLAGS when compiling with GCC_FOR_TARGET.
+# It omits XCFLAGS, and specifies -B./.
+# It also specifies -B$(tooldir)/ to find as and ld for a cross compiler.
+GCC_CFLAGS=$(INTERNAL_CFLAGS) $(X_CFLAGS) $(T_CFLAGS) $(CFLAGS)
+
+# Tools to use when building a cross-compiler.
+# These are used because `configure' appends `cross-make'
+# to the makefile when making a cross-compiler.
+
+target=Sony PlayStation
+#version=`sed -e 's/.*\"\([^ \"]*\)[ \"].*/\1/' < $(srcdir)\version.c`
+#mainversion=`sed -e 's/.*\"\([0-9]*\.[0-9]*\).*/\1/' < $(srcdir)\version.c`
+
+# Directory where sources are, from where we are.
+srcdir = .
+VPATH = $(srcdir)
+
+# Additional system libraries to link with.
+CLIB=
+
+# Change this to a null string if obstacks are installed in the
+# system library.
+OBSTACK=obstack.o
+
+# Choose the real default target.
+ALL=all
+
+# End of variables for you to override.
+
+# Definition of `all' is here so that new rules inserted by sed
+# do not specify the default target.
+all: all.indirect
+
+# This tells GNU Make version 3 not to put all variables in the environment.
+.NOEXPORT:
+
+# sed inserts variable overrides after the following line.
+CC = cl 
+CLIB = libc.lib kernel32.lib 
+CFLAGS = -Di386 -DWIN32 -D_WIN32 -D_M_IX86=300 -D_X86_=1   -DALMOST_STDC -D_MSC_VER=800 -D__MSDOS__ -Ox -Fo$@
+LDFLAGS = -align:0x1000 -subsystem:console -entry:mainCRTStartup   -stack:1000000,1000 
+
+EXTRA_OBJS=winnt.o 
+winnt.o: $(srcdir)/config/i386/winnt.c 
+	$(CC) $(CFLAGS)   	-I. -I$(srcdir) -I$(srcdir)/config -c $(srcdir)/config/i386/winnt.c 
+
+STMP_FIXPROTO = 
+OTHER_FIXINCLUDES_DIRS=. 
+RANLIB = : 
+RANLIB_TEST = false 
+OLDCC = cl 
+MAKE = nmake 
+SYMLINK = copy 
+INSTALL = $(srcdir)/install.sh -c 
+exeext = .exe 
+objext = .o 
+oldobjext = .o 
+
+EXTRA_PROGRAMS=ld.exe 
+
+ld.o: $(srcdir)/config/winnt/ld.c 
+	$(CC) $(CFLAGS)   	-I. -I$(srcdir) -I$(srcdir)/config -c $(srcdir)/config/winnt/ld.c 
+
+ld.exe: ld.o 
+	link -out:ld.exe ld.o $(LDFLAGS) $(CLIB) 
+
+EXTRA_GCC_OBJS=spawnv.o oldnames.o 
+spawnv.o: $(srcdir)/config/winnt/spawnv.c 
+	$(CC) $(CFLAGS)   	-I. -I$(srcdir) -I$(srcdir)/config -c $(srcdir)/config/winnt/spawnv.c 
+
+oldnames.o: $(srcdir)/config/winnt/oldnames.c 
+	$(CC) $(CFLAGS)   	-I. -I$(srcdir) -I$(srcdir)/config -c $(srcdir)/config/winnt/oldnames.c
+
+# Now figure out from those variables how to compile and link.
+
+all.indirect: Makefile ../cc1plus
+
+# IN_GCC tells obstack.h that we are using gcc's <stddef.h> file.
+INTERNAL_CFLAGS = $(CROSS) -DIN_GCC 
+
+# This is the variable actually used when we compile.
+ALL_CFLAGS = $(INTERNAL_CFLAGS) $(X_CFLAGS) $(T_CFLAGS) $(CFLAGS) $(XCFLAGS)
+
+# Likewise.
+ALL_CPPFLAGS = $(CPPFLAGS) $(X_CPPFLAGS) $(T_CPPFLAGS)
+
+# Even if ALLOCA is set, don't use it if compiling with GCC.
+
+SUBDIR_OBSTACK = ../obstack.o
+SUBDIR_USE_ALLOCA = ../alloca.o
+SUBDIR_MALLOC =
+
+# How to link with both our special library facilities
+# and the system's installed libraries.
+LIBS = $(SUBDIR_OBSTACK) $(SUBDIR_USE_ALLOCA) $(SUBDIR_MALLOC) $(CLIB)
+
+# Specify the directories to be searched for header files.
+# Both . and srcdir are used, in that order,
+# so that tm.h and config.h will be found in the compilation
+# subdirectory rather than in the source directory.
+INCLUDES = -I. -I.. -I$(srcdir) -I$(srcdir)/.. -I$(srcdir)/../config
+
+# Always use -I$(srcdir)/config when compiling.
+.c.o :
+	$(CC) -c $(ALL_CFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) $<
+
+# This tells GNU make version 3 not to export all the variables
+# defined in this file into the environment.
+.NOEXPORT:
+#
+
+# Lists of files for various purposes.
+
+# Language-specific object files for g++
+
+CXX_OBJS = call.o decl.o errfn.o expr.o pt.o sig.o typeck2.o   class.o decl2.o error.o lex.o parse.o ptree.o rtti.o spew.o typeck.o cvt.o   except.o friend.o init.o method.o search.o tree.o xref.o repo.o
+
+# Language-independent object files.
+OBJS = @../stamp-objlist ../c-common.o ../c-pragma.o
+OBJDEPS = ../stamp-objlist ../c-common.o ../c-pragma.o
+
+compiler: ../cc1plus.exe
+../cc1plus.exe: $(P) $(CXX_OBJS) $(OBJDEPS) $(LIBDEPS)
+	link $(LDFLAGS) -out:$@  	      $(CXX_OBJS) $(OBJS) $(LIBS)
+

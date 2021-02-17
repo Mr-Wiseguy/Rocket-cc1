@@ -1,0 +1,22 @@
+Version history for GCC 2.8.0 builds
+------------------------------------
+
+SN32.4.0.00007 (First builds with new source)
+- Use PSX and N64 config files
+- Make .obj extension for -MD option in cccp.c
+- Enable -kanji option and Kanji preprocessing in cccp.c and toplev.c
+- Allow 6 dims instead of 4 in sdbout.c
+- Fix to ignore all that @gcc rubbish in prefix.c
+- Add -funroll-max switch in unroll.c and toplev.c
+- Turn exceptions off by default in toplev.c
+- Don't remove directory name in .file directive in toplev.c
+- Enable target file switching in mips.h
+- Disable default RTTI generation in cp\decl2.c
+- N64 -mgp64 option to use 4 byte stack rounding where possible in mips.h
+and mips.c (experimental)
+- N64 -mgp64 option to start locals at 16($sp) and not 32($sp) in mips.c
+(experimental)
+
+SN32.4.0.0008 (23.2.98)
+- Get -MD option working (subdirectory for .c files wasn't appearing)
+in cccp.c
