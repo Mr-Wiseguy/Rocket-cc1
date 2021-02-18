@@ -1395,6 +1395,8 @@ libgcc1-test.o: libgcc1-test.c native xgcc
 # This is used only if the user explicitly asks for it.
 compilations: ${OBJS}
 
+gcc: gcc.o prefix.o version.o pexecute.o choose-temp.o
+
 # Create a list of the language-independent object files so the language
 # subdirectories needn't mention their names explicitly.
 stamp-objlist: $(OBJS) $(BC_OBJS)

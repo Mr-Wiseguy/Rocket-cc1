@@ -32,7 +32,7 @@ Once it knows which kind of compilation to perform, the procedure for
 compilation is specified by a string called a "spec".  */
 
 #include "config.h"
-#undef __STDC__
+// #undef __STDC__
 #include <sys/types.h>
 #include <ctype.h>
 #include <signal.h>
@@ -46,11 +46,11 @@ compilation is specified by a string called a "spec".  */
 #include "obstack.h"
 #include "gansidecl.h"
 
-#ifdef __STDC__
+// #ifdef __STDC__
 #include <stdarg.h>
-#else
-#include <varargs.h>
-#endif
+// #else
+// #include <varargs.h>
+// #endif
 #include <stdio.h>
 
 #ifndef R_OK

@@ -30,3 +30,10 @@ insn-flags.h
 insn-output.c
 insn-recog.c
 config.log
+gcc
+multilib.h
+protoize
+stamp-mlib
+stamp-proto
+unprotoize
+xgcc
