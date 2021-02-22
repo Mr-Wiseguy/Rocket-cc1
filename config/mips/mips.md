@@ -6067,7 +6067,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT && TARGET_DOUBLE_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.eq.d\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.eq.d\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6080,7 +6080,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT && TARGET_DOUBLE_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.lt.d\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.lt.d\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6093,7 +6093,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT && TARGET_DOUBLE_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.le.d\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.le.d\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6106,7 +6106,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT && TARGET_DOUBLE_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.lt.d\\t%Z0%2,%1\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.lt.d\\t%Z0%2,%1\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6119,7 +6119,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT && TARGET_DOUBLE_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.le.d\\t%Z0%2,%1\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.le.d\\t%Z0%2,%1\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6132,7 +6132,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.eq.s\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.eq.s\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6145,7 +6145,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.lt.s\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.lt.s\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6158,7 +6158,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.le.s\\t%Z0%1,%2\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.le.s\\t%Z0%1,%2\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6171,7 +6171,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.lt.s\\t%Z0%2,%1\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.lt.s\\t%Z0%2,%1\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")
@@ -6184,7 +6184,7 @@ move\\t%0,%z4\\n\\
   "TARGET_HARD_FLOAT"
   "*
 {
-  return mips_fill_delay_slot (\"c.le.s\\t%Z0%2,%1\", DELAY_FCMP, operands, insn);
+  return mips_fill_delay_slot (\"c.le.s\\t%Z0%2,%1\\n\\tnop\", DELAY_FCMP, operands, insn);
 }"
  [(set_attr "type"	"fcmp")
   (set_attr "mode"	"FPSW")

@@ -933,7 +933,7 @@ mips_fill_delay_slot (ret, type, operands, cur_insn)
   register rtx next_insn	= (cur_insn) ? NEXT_INSN (cur_insn) : (rtx)0;
   register int num_nops;
 
-  if (type == DELAY_LOAD || type == DELAY_FCMP)
+  if (type == DELAY_LOAD)
     num_nops = 1;
 
   else if (type == DELAY_HILO)
